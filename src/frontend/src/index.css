@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Playfair Display — pre-bundled */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* General Sans — pre-bundled body font */
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    /* Papa's Cuisine Design Tokens — OKLCH raw L C H */
+    --background: 97.2 0.01 75;
+    --foreground: 20 0.02 30;
+    --card: 98 0.008 75;
+    --card-foreground: 20 0.02 30;
+    --popover: 98 0.008 75;
+    --popover-foreground: 20 0.02 30;
+    /* Deep Warm Red — Primary */
+    --primary: 35.5 0.14 22;
+    --primary-foreground: 97 0.01 75;
+    /* Golden Accent — Secondary */
+    --secondary: 75 0.13 75;
+    --secondary-foreground: 20 0.02 30;
+    --muted: 94 0.015 75;
+    --muted-foreground: 55 0.03 30;
+    --accent: 75 0.13 75;
+    --accent-foreground: 20 0.02 30;
+    --destructive: 30 0.18 27;
+    --destructive-foreground: 97 0.01 75;
+    --border: 90 0.02 75;
+    --input: 90 0.02 75;
+    --ring: 35.5 0.14 22;
+    --radius: 0.75rem;
+    /* Brand colors */
+    --brand-red: #8b1e1e;
+    --brand-gold: #c9a227;
+    --brand-cream: #f8f5f0;
+    --brand-charcoal: #2a2a2a;
+    --brand-red-dark: #6b1616;
+    --brand-gold-light: #e8bc45;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "General Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+
+  .font-body {
+    font-family: "General Sans", system-ui, sans-serif;
+  }
+
+  /* ——— Scroll reveals — cubic-bezier for a premium feel ——— */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-36px);
+    transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(36px);
+    transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ——— Editorial section header: gold rule above overline ——— */
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .section-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .section-rule {
+    display: block;
+    width: 44px;
+    height: 2px;
+    background: var(--brand-gold);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  /* ——— Outlined button fill-from-left hover ——— */
+  .btn-outline-red {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--brand-red);
+    color: var(--brand-red);
+    background: transparent;
+    transition: color 0.3s ease;
+  }
+  .btn-outline-red::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--brand-red);
+    transform: translateX(-101%);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 0;
+  }
+  .btn-outline-red:hover::before {
+    transform: translateX(0);
+  }
+  .btn-outline-red:hover {
+    color: #fff;
+  }
+  .btn-outline-red span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ——— Menu card warm hover shadow ——— */
+  .menu-card {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 56px rgba(139, 30, 30, 0.13), 0 4px 16px
+      rgba(0, 0, 0, 0.06);
+  }
+
+  /* ——— Paper texture overlay for cream sections ——— */
+  .cream-texture {
+    background-color: #f8f5f0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+}
